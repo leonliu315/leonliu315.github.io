@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Leon&#39;s Blog</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2016-10-12T07:33:06.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Leon</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2016/10/12/hello-world/"/>
+    <id>http://yoursite.com/2016/10/12/hello-world/</id>
+    <published>2016-10-12T07:33:12.721Z</published>
+    <updated>2016-10-12T07:33:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Hello World, and no plan for this, may be.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Hello World, and no plan for this, may be.&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
