@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Leon&#39;s Blog</title>
+  <title>关于go的并发map | Leon&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Leon's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="&amp;emsp;&amp;emsp;自从使用go以来，一直都觉得用起来非常的舒服，用来工作真的是很合适的语言，不过我自己开发的工具大部分还是用pyhon，和python不同的是，python由于GIL的存在，对于是否在一个程序里拥有多厉害的并发能力并不需要太纠结，go对底层良好的封装，并发的时候也是处于真实并行的状态。不过go一直没有在基础的数据结构和库里提供类似java的并发map一样的功能，大概因为官方一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于go的并发map">
+<meta property="og:url" content="http://yoursite.com/2016/10/20/go-concurrent/index.html">
 <meta property="og:site_name" content="Leon's Blog">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;自从使用go以来，一直都觉得用起来非常的舒服，用来工作真的是很合适的语言，不过我自己开发的工具大部分还是用pyhon，和python不同的是，python由于GIL的存在，对于是否在一个程序里拥有多厉害的并发能力并不需要太纠结，go对底层良好的封装，并发的时候也是处于真实并行的状态。不过go一直没有在基础的数据结构和库里提供类似java的并发map一样的功能，大概因为官方一">
+<meta property="og:updated_time" content="2016-10-20T09:25:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leon's Blog">
+<meta name="twitter:title" content="关于go的并发map">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;自从使用go以来，一直都觉得用起来非常的舒服，用来工作真的是很合适的语言，不过我自己开发的工具大部分还是用pyhon，和python不同的是，python由于GIL的存在，对于是否在一个程序里拥有多厉害的并发能力并不需要太纠结，go对底层良好的封装，并发的时候也是处于真实并行的状态。不过go一直没有在基础的数据结构和库里提供类似java的并发map一样的功能，大概因为官方一">
   
     <link rel="alternate" href="/atom.xml" title="Leon&#39;s Blog" type="application/atom+xml">
   
@@ -59,9 +63,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-go-concurrent" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-go-concurrent" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/10/20/go-concurrent/" class="article-date">
   <time datetime="2016-10-20T06:24:33.000Z" itemprop="datePublished">2016-10-20</time>
@@ -74,8 +76,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/20/go-concurrent/">关于go的并发map</a>
+    <h1 class="article-title" itemprop="name">
+      关于go的并发map
     </h1>
   
 
@@ -94,47 +96,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/12/hello-world/" class="article-date">
-  <time datetime="2016-10-12T06:24:33.000Z" itemprop="datePublished">2016-10-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/12/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2016/10/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Hello World, and no plan for this, may be.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/12/hello-world/" data-id="ciuhyraaw000099692e3u2yva" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
 
 </section>
         
