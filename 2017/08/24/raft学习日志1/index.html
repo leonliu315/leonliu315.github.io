@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Leon&#39;s Blog</title>
+  <title>raft学习日志1 | Leon&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Leon's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="&amp;emsp;&amp;emsp;对于很多分布式系统来说一致的状态可谓是系统的基石，但很多时候这可能是一个很难处理的事情，毕竟要考虑的东西太多，对于一致性协议来说之前的选择可能只有paxos，但是这个过于复杂并且难以进行可靠的工程实践，但是raft的出现可以说是缓解了这样的状况。&amp;emsp;&amp;emsp;raft的理论很重要的一点就是易于理解，它通过强化并且减少一些可能的选择换来理解和实现上的可能，不过在有的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="raft学习日志1">
+<meta property="og:url" content="http://yoursite.com/2017/08/24/raft学习日志1/index.html">
 <meta property="og:site_name" content="Leon's Blog">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;对于很多分布式系统来说一致的状态可谓是系统的基石，但很多时候这可能是一个很难处理的事情，毕竟要考虑的东西太多，对于一致性协议来说之前的选择可能只有paxos，但是这个过于复杂并且难以进行可靠的工程实践，但是raft的出现可以说是缓解了这样的状况。&amp;emsp;&amp;emsp;raft的理论很重要的一点就是易于理解，它通过强化并且减少一些可能的选择换来理解和实现上的可能，不过在有的">
+<meta property="og:updated_time" content="2017-08-24T03:10:00.254Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leon's Blog">
+<meta name="twitter:title" content="raft学习日志1">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;对于很多分布式系统来说一致的状态可谓是系统的基石，但很多时候这可能是一个很难处理的事情，毕竟要考虑的东西太多，对于一致性协议来说之前的选择可能只有paxos，但是这个过于复杂并且难以进行可靠的工程实践，但是raft的出现可以说是缓解了这样的状况。&amp;emsp;&amp;emsp;raft的理论很重要的一点就是易于理解，它通过强化并且减少一些可能的选择换来理解和实现上的可能，不过在有的">
   
     <link rel="alternate" href="/atom.xml" title="Leon&#39;s Blog" type="application/atom+xml">
   
@@ -59,9 +63,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-raft学习日志1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-raft学习日志1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/08/24/raft学习日志1/" class="article-date">
   <time datetime="2017-08-24T02:09:49.000Z" itemprop="datePublished">2017-08-24</time>
@@ -74,8 +76,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/24/raft学习日志1/">raft学习日志1</a>
+    <h1 class="article-title" itemprop="name">
+      raft学习日志1
     </h1>
   
 
@@ -94,84 +96,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-go-concurrent" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/20/go-concurrent/" class="article-date">
-  <time datetime="2016-10-20T06:24:33.000Z" itemprop="datePublished">2016-10-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/20/go-concurrent/">关于go的并发map</a>
-    </h1>
+    <a href="/2016/10/20/go-concurrent/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关于go的并发map</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;&emsp;自从使用go以来，一直都觉得用起来非常的舒服，用来工作真的是很合适的语言，不过我自己开发的工具大部分还是用pyhon，和python不同的是，python由于GIL的存在，对于是否在一个程序里拥有多厉害的并发能力并不需要太纠结，go对底层良好的封装，并发的时候也是处于真实并行的状态。不过go一直没有在基础的数据结构和库里提供类似java的并发map一样的功能，大概因为官方一直提倡通过通讯来共享内存，大部分情况下加锁就可以满足需求，不过有几种情况可能会比较痛苦，一种是有大量的遍历的需求，一种就是真的有大量的并发需求，所以我自己尝试编写了两个相关的模块<a href="https://github.com/leonliu315/go-concurrent" target="_blank" rel="external">https://github.com/leonliu315/go-concurrent</a>，map是根据java里相关功能实现的，相当于是翻译过来，并发map原理就是分段进行锁操作，降低锁的争抢的激烈程度来达到提高性能的目的，另一个则是一个并发的skiplist，和java里的不同，这个skiplist的实现并没有采用cas，因为使用cas的复杂度太高，由于链表本身是并发友好的数据结构，原理也很简单，就是锁住数据的前继和后继即可，相当于只影响前后两个相关数据，而且操作数据的时间是固定的，所以大并发的时候对性能比用单一锁定的影响更小，skiplist的迭代操作也是线程安全的，不过skiplist的性能是O(lgn)，数据量比较大的情况下性能可能是不如hashmap的。<br>&emsp;&emsp;并发数据结构使用的时候需要注意，他们都是弱一致性的，也就是说有可能会读到脏数据，就程度来说skiplist要小于hashmap，经过测试，一般情况下都是不需要使用这两个模块的，因为大部分时候性能是不如非线程安全的数据结构。如果并发程度已经成为了瓶颈才需要考虑换。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/20/go-concurrent/" data-id="cj6pt93pr0000e66953p9m9qy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/12/hello-world/" class="article-date">
-  <time datetime="2016-10-12T06:24:33.000Z" itemprop="datePublished">2016-10-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/12/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Hello World, and no plan for this, may be.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/12/hello-world/" data-id="cj6pt93px0002e669mj3bwr0q" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 </section>
         

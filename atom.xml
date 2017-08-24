@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-20T09:25:49.000Z</updated>
+  <updated>2017-08-24T03:10:00.254Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,30 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>raft学习日志1</title>
+    <link href="http://yoursite.com/2017/08/24/raft%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%971/"/>
+    <id>http://yoursite.com/2017/08/24/raft学习日志1/</id>
+    <published>2017-08-24T02:09:49.000Z</published>
+    <updated>2017-08-24T03:10:00.254Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;对于很多分布式系统来说一致的状态可谓是系统的基石，但很多时候这可能是一个很难处理的事情，毕竟要考虑的东西太多，对于一致性协议来说之前的选择可能只有paxos，但是这个过于复杂并且难以进行可靠的工程实践，但是raft的出现可以说是缓解了这样的状况。<br>&emsp;&emsp;raft的理论很重要的一点就是易于理解，它通过强化并且减少一些可能的选择换来理解和实现上的可能，不过在有的人的眼里raft的适用性是不如paxos的，不过一个易于实现和维护的协议已经可以满足多数的状况了，而且过于复杂的协议维护起来也太困难了。<br>&emsp;&emsp;raft总结起来就是三点，选举，日志复制，安全性，具体在论文里已经有具体的说明了，这里想讲讲一点可能被忽视的点，很多实现可能也没有考虑，通常来说一个分布式的集群出现类似单点或者在集群允许的范围内的节点失效(崩溃)，不是可怕的事情，出现脑裂才是比较麻烦的事情，不过一般情况下由网络引起的节点分裂达不到不可用的数量的时候还可以使用停止服务的方式，但是在raft集群里有一种情况比较恶心，比如某一个节点在运行的过程中和leader断开后无法连接，但是又和别的节点处于正常连接状况，而leader和其他连接也处于正常状况，那么按照规则，这个失连的follower是可以重新发起投票的，按照规范，任期是单调增长，那么这个节点的任期就有可能大于整个集群了，那么这个时候对集群状态来说就很难处理了，很多简单的实现是没考虑这个情况的，都是直接增长后发起投票，而且接受方按照论文直接实现的话则会导致集群出现混乱情况，etcd的raft则使用了一个方式来解决这个问题，它的任期不是直接增长，而是采用预投票的形式，任期则是在预投票的时候增长，但是实际不增长，只有预投票通过后则正式增长，这样任期就不会出现故障的时候无限制的增长的状况。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;emsp;&amp;emsp;对于很多分布式系统来说一致的状态可谓是系统的基石，但很多时候这可能是一个很难处理的事情，毕竟要考虑的东西太多，对于一致性协议来说之前的选择可能只有paxos，但是这个过于复杂并且难以进行可靠的工程实践，但是raft的出现可以说是缓解了这样的状况。&lt;b
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>关于go的并发map</title>
     <link href="http://yoursite.com/2016/10/20/go-concurrent/"/>
     <id>http://yoursite.com/2016/10/20/go-concurrent/</id>
     <published>2016-10-20T06:24:33.000Z</published>
-    <updated>2016-10-20T09:25:49.000Z</updated>
+    <updated>2017-08-24T02:07:18.626Z</updated>
     
     <content type="html"><![CDATA[<p>&emsp;&emsp;自从使用go以来，一直都觉得用起来非常的舒服，用来工作真的是很合适的语言，不过我自己开发的工具大部分还是用pyhon，和python不同的是，python由于GIL的存在，对于是否在一个程序里拥有多厉害的并发能力并不需要太纠结，go对底层良好的封装，并发的时候也是处于真实并行的状态。不过go一直没有在基础的数据结构和库里提供类似java的并发map一样的功能，大概因为官方一直提倡通过通讯来共享内存，大部分情况下加锁就可以满足需求，不过有几种情况可能会比较痛苦，一种是有大量的遍历的需求，一种就是真的有大量的并发需求，所以我自己尝试编写了两个相关的模块<a href="https://github.com/leonliu315/go-concurrent" target="_blank" rel="external">https://github.com/leonliu315/go-concurrent</a>，map是根据java里相关功能实现的，相当于是翻译过来，并发map原理就是分段进行锁操作，降低锁的争抢的激烈程度来达到提高性能的目的，另一个则是一个并发的skiplist，和java里的不同，这个skiplist的实现并没有采用cas，因为使用cas的复杂度太高，由于链表本身是并发友好的数据结构，原理也很简单，就是锁住数据的前继和后继即可，相当于只影响前后两个相关数据，而且操作数据的时间是固定的，所以大并发的时候对性能比用单一锁定的影响更小，skiplist的迭代操作也是线程安全的，不过skiplist的性能是O(lgn)，数据量比较大的情况下性能可能是不如hashmap的。<br>&emsp;&emsp;并发数据结构使用的时候需要注意，他们都是弱一致性的，也就是说有可能会读到脏数据，就程度来说skiplist要小于hashmap，经过测试，一般情况下都是不需要使用这两个模块的，因为大部分时候性能是不如非线程安全的数据结构。如果并发程度已经成为了瓶颈才需要考虑换。</p>
 ]]></content>
@@ -39,7 +58,7 @@
     <link href="http://yoursite.com/2016/10/12/hello-world/"/>
     <id>http://yoursite.com/2016/10/12/hello-world/</id>
     <published>2016-10-12T06:24:33.000Z</published>
-    <updated>2016-10-20T06:29:29.000Z</updated>
+    <updated>2017-08-24T02:07:18.626Z</updated>
     
     <content type="html"><![CDATA[<p>Hello World, and no plan for this, may be.</p>
 ]]></content>
